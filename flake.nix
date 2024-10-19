@@ -55,6 +55,9 @@
 
             # For the bundle of SSL certificates to be used in applications (like curl and others...)
             export SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt
+
+            # Ensure .python-version contains the Python version installed in this development shell
+            echo "$(python --version | cut --delimiter=" " --fields=2)" > .python-version
           '';
         })).env;
   };
