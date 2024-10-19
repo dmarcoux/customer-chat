@@ -16,6 +16,58 @@ Talking points / topics to be considered:
 - How does the frontend interact with your classes?
 - Which enhancements come to your mind when talking about chat software solutions?
 
+## Quick Win Solution
+
+### Architecture
+
+- Monolith application built with Django
+- SQLite as a database
+- Models
+    - User (Customer and Customer Agents)
+    - Message
+    - SupportCase
+
+```mermaid
+erDiagram
+    User ||--o{ SupportCase : creates
+    User ||--o{ Message : sends
+    SupportCase ||--o{ Message : has
+```
+
+- Features
+    - Messages aren't in real-time, the browser window must be refreshed
+    - Customers can create multiple support cases
+    - Customers can send messages in the support cases they created
+    - Customer agents can send messages in all support cases
+
+### Limitations
+
+- Scalability
+    - Every feature is part of the same application. What if one part of the application would benefit from having more resources?
+    - SQLite scales well vertically, but it is hard to scale horizontally since a SQLite database is just a file on disk.
+- Extensibility
+    - Monolith application is simple to develop, but it's quite rigid.
+    - User as the single model for customers and customer agents is fine at a small scale, but if this application grows, it would be better to
+      split this model into 2 models (Customer, Customer Agent). It would be easier to understand what is specific to customers and customer agents.
+    - It's possible for customers to open multiple support cases, but the support cases don't have any status (like "on going", "completed", etc...)
+- Security / Data Privacy
+    - Customer agents have access to all support cases. It would be better to assign one customer agent per support case
+      to limit data access. In general, it's a questionable and risky practice to give everyone access
+      to everything.
+- Single point of failure
+    - Since the application is hard to scale horizontally, thus most surely running on a single server, it has
+      a single point of failure. If the server goes down (hardware failure, power outage, etc...), the application
+      isn't usable anymore. The solution would be to address the scalability limitations. We are then able to
+      remove this single point of failure by scaling horizontally with multiple application instances behind a
+      load balancer, a database cluster with multiple read/write nodes
+- Interactivity
+    - Chat is not in real-time. Relying on an implementation based on WebSockets would fix this.
+- Automation
+    - It's possible that different customers ask the same questions. Whenever
+      this happens, a customer agent must take their time to still reply what has
+      already been said to a previous customer. It could be perhaps automated with
+      AI.
+
 ## Python Development Environment with Nix Flakes
 
 Reproducible development environment for Python projects which relies on
