@@ -33,6 +33,8 @@
             python312
             # Package installer for Python
             python312Packages.pip
+            # For the sqlite3 CLI
+            sqlite
             # Timezones
             tzdata
             # Locales
