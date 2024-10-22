@@ -92,6 +92,31 @@ python -m venv venv
 source venv/bin/activate
 ```
 
+**Install dependencies:**
+
+```bash
+pip install -r requirements.txt
+```
+
+**Migrate the database:**
+
+```bash
+python manage.py migrate
+```
+
+**Create a super user for the admin interface:**
+
+```bash
+python manage.py createsuperuser
+```
+
+**Run the development server:**
+
+```bash
+python manage.py runserver
+# Now accessible at http://localhost:8000, admin interface at http://localhost:8000/admin
+```
+
 **Deactivate the virtual environment:**
 
 ```bash
@@ -102,10 +127,4 @@ deactivate
 
 ```bash
 pip freeze > requirements.txt
-```
-
-**Install dependencies:**
-
-```bash
-pip install -r requirements.txt
 ```
