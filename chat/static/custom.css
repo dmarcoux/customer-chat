@@ -1,14 +1,27 @@
 /* Customize Simple.css */
-body>header>:only-child {
-  margin-block-start: unset;
-}
-
 body>header {
   padding-bottom: 0;
 }
 
+body>header>:only-child {
+  margin-block-start: unset;
+}
+
+body>header>nav {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+
 body>header>nav>span {
   font-size: 1.5rem;
+}
+
+#logout-form button {
+  background: none;
+  border: none;
+  text-decoration: underline;
+  color: unset;
 }
 
 h1 {
