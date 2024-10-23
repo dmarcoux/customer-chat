@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Support Cases</h1>
+
+  <ul>
+    {% for support_case in support_cases %}
+      <li>
+        <a href="{% url "show" support_case.id %}">{{ support_case }}</a>
+        by <i>{{ support_case.from_user }}</i>
+      </li>
+    {% empty %}
+      <p>No support cases. Create one...</p>
+    {% endfor %}
+  </ul>
+  {{ endif }}
+{% endblock %}

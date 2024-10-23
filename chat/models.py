@@ -10,6 +10,9 @@ class SupportCase(models.Model):
     from_user = models.ForeignKey(User, on_delete=models.RESTRICT)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"Support Case #{self.id}"
+
     class Meta:
         indexes = [models.Index(fields=["from_user"])]
 

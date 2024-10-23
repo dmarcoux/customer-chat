@@ -1,0 +1,16 @@
+/* Customize Simple.css */
+body>header>:only-child {
+  margin-block-start: unset;
+}
+
+body>header {
+  padding-bottom: 0;
+}
+
+body>header>nav>span {
+  font-size: 1.5rem;
+}
+
+h1 {
+  font-size: 2.2rem;
+}

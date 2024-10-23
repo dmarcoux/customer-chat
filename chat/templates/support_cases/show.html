@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ support_case }}</h1>
+
+  <ul>
+  {% for message in messages %}
+    <li>
+      {{ message.content }}
+      <p><i>{{ message.from_user }}</i> @ {{ message.created_at }}</p>
+    </li>
+  {% empty %}
+      There are no messages for this support case...
+  {% endfor %}
+  </ul>
+{% endblock %}
