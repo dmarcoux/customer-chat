@@ -17,4 +17,10 @@
       There are no messages for this support case...
   {% endfor %}
   </ul>
+
+  <form id="messages_create_form" action="{% url 'messages_create' support_case.id %}" method="post" onSubmit="document.querySelector('#messages_create_form input[type=\'submit\']').disabled=true;">
+      {% csrf_token %}
+      {{ message_form }}
+      <input type="submit" value="Send">
+  </form>
 {% endblock %}

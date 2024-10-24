@@ -2,6 +2,7 @@ from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 from django.views import View
 from ..models import SupportCase
+from ..forms import MessageForm
 
 
 class SupportCaseShowView(View):
@@ -20,6 +21,7 @@ class SupportCaseShowView(View):
             "support_case_messages": support_case.message_set.select_related(
                 "from_user"
             ).all(),
+            "message_form": MessageForm(),
         }
 
         return render(request, "support_cases/show.html", context=context)
