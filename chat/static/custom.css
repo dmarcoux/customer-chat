@@ -27,3 +27,13 @@ body>header>nav>span {
 h1 {
   font-size: 2.2rem;
 }
+
+/* Custom styles unrelated to Simple.css */
+ul.messages {
+  padding: 0;
+}
+
+ul.messages>li.notice {
+  list-style-type: none;
+  margin: 0.2rem 0;
+}
