@@ -7,7 +7,11 @@
   {% for support_case_message in support_case_messages %}
     <li>
       {{ support_case_message.content }}
-      <p><i>{{ support_case_message.from_user }}</i> @ {{ support_case_message.created_at }}</p>
+      <p>
+        {% if support_case_message.from_user.is_staff %}
+          <b>Agent</b>
+        {% endif %}
+        <i>{{ support_case_message.from_user }}</i> @ {{ support_case_message.created_at }}</p>
     </li>
   {% empty %}
       There are no messages for this support case...
