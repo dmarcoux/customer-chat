@@ -15,11 +15,13 @@
       <span>Customer Chat</span>
       {% if user.is_authenticated %}
         <a href="{% url "index" %}">Support Cases</a>
-        <i>Logged in as <b>{{ user }}</b></i>
-        <form id="logout-form" method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button type="submit">Log out</button>
-        </form>
+        <span>
+          <i>Logged in as <b>{{ user }}</b></i>
+          <form id="logout-form" method="post" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <button type="submit">Log out</button>
+          </form>
+        </span>
       {% endif %}
     </nav>
   </header>

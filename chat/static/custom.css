@@ -9,12 +9,23 @@ body>header>:only-child {
 
 body>header>nav {
   display: flex;
+  gap: 25px;
   justify-content: center;
   align-items: baseline;
 }
 
-body>header>nav>span {
+body>header>nav>a {
+  border: unset;
+  text-decoration: underline;
+  padding: unset;
+}
+
+body>header>nav>span:first-child {
   font-size: 1.5rem;
+}
+
+#logout-form {
+  display: inline-block;
 }
 
 #logout-form button {
