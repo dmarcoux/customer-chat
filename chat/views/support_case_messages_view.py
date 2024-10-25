@@ -1,4 +1,5 @@
 from django.http import Http404
+from django.contrib import messages
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views import View
 from ..models import SupportCase
@@ -20,6 +21,7 @@ class SupportCaseMessagesView(View):
 
         if form.is_valid():
             form.create_message(request, support_case, request.user)
+            messages.success(request, "Your message was added to the support case.")
 
             return redirect("support_cases_show", id=id)
         else:

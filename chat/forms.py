@@ -1,5 +1,4 @@
 from django import forms
-from django.contrib import messages
 from .models import Message
 
 
@@ -18,4 +17,3 @@ class MessageForm(forms.Form):
             content=self.cleaned_data["content"],
         )
         new_message.save()
-        messages.success(request, "Your message was added to the support case.")
