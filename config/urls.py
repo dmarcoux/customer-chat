@@ -18,9 +18,11 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import include, path
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
-    path("", include("chat.urls")),
+    path("", RedirectView.as_view(pattern_name="support_cases")),
+    path("support_cases/", include("chat.urls")),
     path(
         "accounts/login/",
         auth_views.LoginView.as_view(template_name="accounts/login.html"),
