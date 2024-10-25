@@ -21,7 +21,7 @@ class SupportCaseMessagesView(View):
         if form.is_valid():
             form.create_message(request, support_case, request.user)
 
-            return redirect("show", id=id)
+            return redirect("support_cases_show", id=id)
         else:
             context = {
                 "support_case": support_case,

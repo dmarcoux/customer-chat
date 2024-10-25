@@ -14,7 +14,7 @@
     <nav>
       <span>Customer Chat</span>
       {% if user.is_authenticated %}
-        <a href="{% url "index" %}">Support Cases</a>
+        <a href="{% url "support_cases" %}">Support Cases</a>
         <span>
           <i>Logged in as <b>{{ user }}</b></i>
           <form id="logout-form" method="post" action="{% url 'logout' %}">
