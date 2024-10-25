@@ -1,0 +1,154 @@
+[
+  {
+    "model":"chat.user",
+    "pk":1,
+    "fields":{
+      "password":"pbkdf2_sha256$870000$7RRFStfznjyj7Yra6DSBqG$vXKlqaU7Cm6k+Vfqm7bwd5l5mgtiFkn7hqd/gMdWU9M=",
+      "last_login":null,
+      "is_superuser":true,
+      "username":"admin",
+      "first_name":"",
+      "last_name":"",
+      "email":"admin@example.com",
+      "is_staff":true,
+      "is_active":true,
+      "date_joined":"2024-10-25T20:11:47.580Z",
+      "groups":[
+
+      ],
+      "user_permissions":[
+
+      ]
+    }
+  },
+  {
+    "model":"chat.user",
+    "pk":2,
+    "fields":{
+      "password":"pbkdf2_sha256$870000$cmP1j2Aluy9L4UJwhW1pNI$reSLqfC4FQjz7mLCu33D/oqsyM7lwg7CKd+ciyo7Kzw=",
+      "last_login":null,
+      "is_superuser":false,
+      "username":"customer123",
+      "first_name":"",
+      "last_name":"",
+      "email":"",
+      "is_staff":false,
+      "is_active":true,
+      "date_joined":"2024-10-25T19:54:18.372Z",
+      "groups":[
+
+      ],
+      "user_permissions":[
+
+      ]
+    }
+  },
+  {
+    "model":"chat.user",
+    "pk":3,
+    "fields":{
+      "password":"pbkdf2_sha256$870000$8JQkAypuPouqROPfPhlgtu$BE5f8zZDutiu6k0yISgoSDJ6RMG0GnOsaOvsiih5b0s=",
+      "last_login":null,
+      "is_superuser":false,
+      "username":"agent123",
+      "first_name":"",
+      "last_name":"",
+      "email":"",
+      "is_staff":true,
+      "is_active":true,
+      "date_joined":"2024-10-25T19:56:45Z",
+      "groups":[
+
+      ],
+      "user_permissions":[
+
+      ]
+    }
+  },
+  {
+    "model":"chat.supportcase",
+    "pk":1,
+    "fields":{
+      "from_user":2,
+      "created_at":"2024-10-26T07:47:17.089Z"
+    }
+  },
+  {
+    "model":"chat.supportcase",
+    "pk":2,
+    "fields":{
+      "from_user":2,
+      "created_at":"2024-10-26T07:51:31.326Z"
+    }
+  },
+  {
+    "model":"chat.message",
+    "pk":1,
+    "fields":{
+      "support_case":1,
+      "from_user":2,
+      "content":"Hello, I need help with my computer. Somehow, it is not really stable.",
+      "created_at":"2024-10-26T07:47:17.094Z"
+    }
+  },
+  {
+    "model":"chat.message",
+    "pk":2,
+    "fields":{
+      "support_case":1,
+      "from_user":3,
+      "content":"Hello, I am John. I will help you today. Did you try restarting your computer? Let me know how it goes.",
+      "created_at":"2024-10-26T07:48:00.092Z"
+    }
+  },
+  {
+    "model":"chat.message",
+    "pk":3,
+    "fields":{
+      "support_case":1,
+      "from_user":2,
+      "content":"Hi John, I will give this a try.",
+      "created_at":"2024-10-26T07:48:17.759Z"
+    }
+  },
+  {
+    "model":"chat.message",
+    "pk":4,
+    "fields":{
+      "support_case":2,
+      "from_user":2,
+      "content":"Hello, I would like to get some support regarding issues I've been facing with my Internet connection.",
+      "created_at":"2024-10-26T07:51:31.336Z"
+    }
+  },
+  {
+    "model":"chat.message",
+    "pk":5,
+    "fields":{
+      "support_case":2,
+      "from_user":3,
+      "content":"Hi Jane, I can help you with this. We need to make sure everything is properly connected.",
+      "created_at":"2024-10-26T07:52:15.415Z"
+    }
+  },
+  {
+    "model":"chat.message",
+    "pk":6,
+    "fields":{
+      "support_case":2,
+      "from_user":3,
+      "content":"Did you follow the \"Quick Start\" guide we provided with the router?",
+      "created_at":"2024-10-26T07:52:33.907Z"
+    }
+  },
+  {
+    "model":"chat.message",
+    "pk":7,
+    "fields":{
+      "support_case":2,
+      "from_user":2,
+      "content":"Yes, I did.",
+      "created_at":"2024-10-26T07:52:46.372Z"
+    }
+  }
+]

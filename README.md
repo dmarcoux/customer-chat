@@ -22,23 +22,33 @@ Talking points / topics to be considered:
 
 - Monolith application built with Django
 - SQLite as a database
-- Models
-    - User (Customer and Customer Agents)
-    - Message
-    - SupportCase
+- Models / Entity Relationship Diagram
+    <details>
+      <summary>Click to see the entity relationship diagram</summary>
 
-```mermaid
-erDiagram
-    User ||--o{ SupportCase : creates
-    User ||--o{ Message : sends
-    SupportCase ||--o{ Message : has
-```
+    #### Entity Relationship Diagram
+
+    ```mermaid
+        erDiagram
+            UserCustomer["User (Customer)"]
+            UserCustomerAgent["User (Customer Agent)"]
+
+            UserCustomer ||--o{ SupportCase : opens
+            UserCustomer ||--o{ Message : sends
+            UserCustomerAgent ||--o{ Message : sends
+            SupportCase ||--o{ Message : has
+    ```
+    </details>
 
 - Features
-    - Messages aren't in real-time, the browser window must be refreshed
-    - Customers can create multiple support cases
+    - Messages aren't in real-time, the browser window must be refreshed to see
+    messages from other users.
+    - Customers can open multiple support cases
     - Customers can send messages in the support cases they created
-    - Customer agents can send messages in all support cases
+    - Customer agents can send messages in all support cases, but they cannot
+    open support cases.
+    - For simplicity purposes, users cannot register themselves. They must be
+    created by the superuser in the Django admin.
 
 ### Limitations
 
@@ -49,6 +59,7 @@ erDiagram
     - Monolith application is simple to develop, but it's quite rigid.
     - User as the single model for customers and customer agents is fine at a small scale, but if this application grows, it would be better to
       split this model into 2 models (Customer, Customer Agent). It would be easier to understand what is specific to customers and customer agents.
+      Right now, we tell customer and customer agents apart from each other via the `is_staff` field in the `User` model.
     - It's possible for customers to open multiple support cases, but the support cases don't have any status (like "on going", "completed", etc...)
 - Security / Data Privacy
     - Customer agents have access to all support cases. It would be better to assign one customer agent per support case
@@ -104,27 +115,25 @@ pip install -r requirements.txt
 python manage.py migrate
 ```
 
-**Create a super user for the admin interface:**
+**Load database seeds:**
+
+This creates 3 users, all with the same password `supereasy`:
+- `admin` (Superuser for Django's admin)
+- `customer123` (Customer / `is_staff` set to `False`)
+- `agent123` (Customer Agent / `is_staff` set to `True`)
+
+In addition to users, a few support cases and messages are also created.
 
 ```bash
-python manage.py createsuperuser
+python manage.py loaddata seeds.json
 ```
 
 **Run the development server:**
 
+Accessible at http://localhost:8000, admin interface at http://localhost:8000/admin.
+
+Log in as one of the users listed in the previous step.
+
 ```bash
 python manage.py runserver
-# Now accessible at http://localhost:8000, admin interface at http://localhost:8000/admin
-```
-
-**Deactivate the virtual environment:**
-
-```bash
-deactivate
-```
-
-**Freeze dependencies:**
-
-```bash
-pip freeze > requirements.txt
 ```
