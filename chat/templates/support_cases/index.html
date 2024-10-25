@@ -14,7 +14,12 @@
         by <i>{{ support_case.from_user }}</i>
       </li>
     {% empty %}
-      <p>No support cases. Create one...</p>
+      <p>
+        No support cases.
+        {% if not request.user.is_staff %}
+          <a href="{% url "support_cases_new" %}">Open one...</a>
+        {% endif %}
+    </p>
     {% endfor %}
   </ul>
   {{ endif }}
