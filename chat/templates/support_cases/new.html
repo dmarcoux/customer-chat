@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Open a Support Case</h1>
+
+  <form id="support_case_create_form" action="{% url 'support_cases' %}" method="post" onSubmit="document.querySelector('#support_case_create_form input[type=\'submit\']').disabled=true;">
+      {% csrf_token %}
+      {{ message_form }}
+      <input type="submit" value="Send">
+  </form>
+{% endblock %}

@@ -3,6 +3,10 @@
 {% block content %}
   <h1>Support Cases</h1>
 
+  {% if not request.user.is_staff %}
+    <a href="{% url "support_cases_new" %}">Open a support case</a>
+  {% endif %}
+
   <ul>
     {% for support_case in support_cases %}
       <li>

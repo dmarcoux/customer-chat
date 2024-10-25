@@ -5,6 +5,11 @@ from . import views
 urlpatterns = [
     path("support_cases/", views.SupportCasesView.as_view(), name="support_cases"),
     path(
+        "support_cases/new",
+        views.SupportCaseNewView.as_view(),
+        name="support_cases_new",
+    ),
+    path(
         "support_cases/<int:id>",
         views.SupportCaseShowView.as_view(),
         name="support_cases_show",
