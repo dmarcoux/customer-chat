@@ -48,3 +48,42 @@ ul.messages>li.notice {
   list-style-type: none;
   margin: 0.2rem 0;
 }
+
+ul.support_case_messages {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+ul.support_case_messages>li {
+  list-style-type: none;
+  padding: 0.2rem;
+  max-width: 90%;
+  margin-bottom: 1rem;
+}
+
+ul.support_case_messages>li.from_user {
+  align-self: flex-end;
+  display: flex;
+  flex-direction: column;
+}
+
+ul.support_case_messages>li.from_user>p:last-child {
+  align-self: flex-end;
+}
+
+ul.support_case_messages>li.from_user>p:first-child {
+  background-color: var(--accent);
+  color: var(--accent-text);
+}
+
+ul.support_case_messages>li>p {
+  margin: 0;
+}
+
+ul.support_case_messages>li>p:first-child {
+  display: inline-block;
+  border: 1px solid var(--border);
+  border-radius: var(--standard-border-radius);
+  padding: 0.4rem;
+}

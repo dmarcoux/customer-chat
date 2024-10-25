@@ -3,10 +3,12 @@
 {% block content %}
   <h1>{{ support_case }}</h1>
 
-  <ul>
+  <ul class="support_case_messages">
   {% for support_case_message in support_case_messages %}
-    <li>
-      {{ support_case_message.content }}
+    <li class="{% if support_case.from_user_id == support_case_message.from_user_id %}from_user{% else %}another_user{% endif %}">
+      <p>
+        {{ support_case_message.content }}
+      </p>
       <p>
         {% if support_case_message.from_user.is_staff %}
           <b>Agent</b>
