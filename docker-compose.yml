@@ -1,0 +1,11 @@
+services:
+  devcontainer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/workspaces:cached
+    command: sleep infinity
+    # Same as in .devcontainer/devcontainer.json
+    ports:
+      - "8000:8000"

@@ -1,0 +1,20 @@
+// This file uses JSONC (JSON with comments). For details, see https://aka.ms/devcontainer.json
+{
+	"name": "Customer Chat",
+
+	// Rely on Docker-Compose, see https://containers.dev/guide/dockerfile
+	"dockerComposeFile": "../docker-compose.yml",
+	"service": "devcontainer",
+	// Default working directory, same as in the Dockerfile
+	"workspaceFolder": "/workspaces",
+
+	// Features to add to the dev container, see https://containers.dev/features.
+	// "features": {},
+
+	// List of ports inside the dev container available locally.
+	// Same as in docker-compose.yml
+	"appPort": [8000],
+
+	// Configure tool-specific properties.
+	// "customizations": {},
+}

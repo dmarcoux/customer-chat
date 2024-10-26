@@ -79,61 +79,19 @@ Talking points / topics to be considered:
       already been said to a previous customer. It could be perhaps automated with
       AI.
 
-## Python Development Environment with Nix Flakes
+## Development Environment
 
-Reproducible development environment for Python projects which relies on
-[Nix](https://github.com/NixOS/nix) [Flakes](https://nixos.wiki/wiki/Flakes),
-a purely functional and cross-platform package manager.
+The development environment is based on [devcontainer](https://containers.dev/)
+which relies on [Docker](https://www.docker.com/) and
+[Docker-Compose](https://docs.docker.com/compose/). devcontainer is [supported
+in various IDEs/editors](https://containers.dev/supporting), in addition to
+having a [CLI](https://github.com/devcontainers/cli).
 
-**Start development environment:**
+The following versions were tested:
+- Docker: 26.1.5
+- Docker-Compose: 2.27.0
+- devcontainer CLI: 0.71.0
+- VS Code editor (1.93.1) with Dev Containers extension (v0.388.0)
 
-```bash
-nix develop
-```
-
-**Create a virtual environment:**
-
-```bash
-python -m venv venv
-```
-
-**Activate the virtual environment:**
-
-```bash
-source venv/bin/activate
-```
-
-**Install dependencies:**
-
-```bash
-pip install -r requirements.txt
-```
-
-**Migrate the database:**
-
-```bash
-python manage.py migrate
-```
-
-**Load database seeds:**
-
-This creates 3 users, all with the same password `supereasy`:
-- `admin` (Superuser for Django's admin)
-- `customer123` (Customer / `is_staff` set to `False`)
-- `agent123` (Customer Agent / `is_staff` set to `True`)
-
-In addition to users, a few support cases and messages are also created.
-
-```bash
-python manage.py loaddata seeds.json
-```
-
-**Run the development server:**
-
-Accessible at http://localhost:8000, admin interface at http://localhost:8000/admin.
-
-Log in as one of the users listed in the previous step.
-
-```bash
-python manage.py runserver
-```
+Refer to the [Makefile](./Makefile) to see various commands, like starting the
+development environment or formatting the code.
