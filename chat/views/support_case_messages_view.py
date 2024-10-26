@@ -24,13 +24,13 @@ class SupportCaseMessagesView(View):
             messages.success(request, "Your message was added to the support case.")
 
             return redirect("support_cases_show", id=id)
-        else:
-            context = {
-                "support_case": support_case,
-                "support_case_messages": support_case.message_set.select_related(
-                    "from_user"
-                ).all(),
-                "message_form": form,
-            }
 
-            return render(request, "support_cases/show.html", context=context)
+        context = {
+            "support_case": support_case,
+            "support_case_messages": support_case.message_set.select_related(
+                "from_user"
+            ).all(),
+            "message_form": form,
+        }
+
+        return render(request, "support_cases/show.html", context=context)

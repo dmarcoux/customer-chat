@@ -31,9 +31,9 @@ class SupportCasesView(View):
             form.create_message(request, support_case, support_case.from_user)
 
             return redirect("support_cases_show", id=support_case.id)
-        else:
-            context = {
-                "message_form": form,
-            }
 
-            return render(request, "support_cases/show.html", context=context)
+        context = {
+            "message_form": form,
+        }
+
+        return render(request, "support_cases/show.html", context=context)
