@@ -10,7 +10,7 @@ class MessageForm(forms.Form):
         ),
     )
 
-    def create_message(self, request, support_case, from_user):
+    def create_message(self, support_case, from_user):
         new_message = Message(
             support_case=support_case,
             from_user=from_user,

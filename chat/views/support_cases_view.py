@@ -28,7 +28,7 @@ class SupportCasesView(View):
         if form.is_valid():
             support_case = SupportCase(from_user=request.user)
             support_case.save()
-            form.create_message(request, support_case, support_case.from_user)
+            form.create_message(support_case, support_case.from_user)
 
             return redirect("support_cases_show", id=support_case.id)
 

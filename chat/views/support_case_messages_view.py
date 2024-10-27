@@ -20,7 +20,7 @@ class SupportCaseMessagesView(View):
             raise Http404("No SupportCase matches the given query.")
 
         if form.is_valid():
-            form.create_message(request, support_case, request.user)
+            form.create_message(support_case, request.user)
             messages.success(request, "Your message was added to the support case.")
 
             return redirect("support_cases_show", id=id)
