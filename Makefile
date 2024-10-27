@@ -34,3 +34,7 @@ format:
 # Lint the Python code
 lint:
 	ruff check --show-fixes --fix
+
+# Run tests
+tests:
+	python manage.py test

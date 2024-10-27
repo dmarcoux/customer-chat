@@ -32,3 +32,6 @@ jobs:
 
       - name: Lint Python code
         run: ruff check
+
+      - name: Run tests
+        run: make tests
