@@ -33,4 +33,4 @@ format:
 
 # Lint the Python code
 lint:
-	ruff check
+	ruff check --show-fixes --fix
