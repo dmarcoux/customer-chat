@@ -79,6 +79,12 @@ Talking points / topics to be considered:
       already been said to a previous customer. It could be perhaps automated with
       AI.
 
+## State-Of-The-Art Solution
+
+It all depends on what we want to achieve and our needs. If we start from the
+"Quick Win" solution, then addressing its limitations would definitely take us
+to a pretty good state.
+
 ## Development Environment
 
 The development environment is based on [devcontainer](https://containers.dev/)
