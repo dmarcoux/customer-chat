@@ -1,6 +1,7 @@
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 from django.views import View
+from django.contrib import messages
 from ..models import SupportCase
 from ..forms import MessageForm
 
@@ -36,4 +37,7 @@ class SupportCasesView(View):
             "message_form": form,
         }
 
-        return render(request, "support_cases/show.html", context=context)
+        # This only happens if the user somehow tinkered with the request
+        messages.error(request, "Your support case could not be opened. Try again.")
+
+        return render(request, "support_cases/new.html", context=context)
