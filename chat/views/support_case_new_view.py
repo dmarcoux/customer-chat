@@ -1,11 +1,13 @@
 from django.core.exceptions import PermissionDenied
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views import View
-from ..forms import MessageForm
+
+from chat.forms import MessageForm
 
 
 class SupportCaseNewView(View):
-    def get(self, request):
+    def get(self, request: HttpRequest) -> HttpResponse:
         if request.user.is_staff:
             raise PermissionDenied
 

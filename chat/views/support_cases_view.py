@@ -1,13 +1,15 @@
-from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, redirect
-from django.views import View
 from django.contrib import messages
-from ..models import SupportCase
-from ..forms import MessageForm
+from django.core.exceptions import PermissionDenied
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.shortcuts import redirect, render
+from django.views import View
+
+from chat.forms import MessageForm
+from chat.models import SupportCase
 
 
 class SupportCasesView(View):
-    def get(self, request):
+    def get(self, request: HttpRequest) -> HttpResponse:
         support_cases = (
             SupportCase.objects.all()
             if request.user.is_staff
@@ -20,7 +22,7 @@ class SupportCasesView(View):
 
         return render(request, "support_cases/index.html", context=context)
 
-    def post(self, request):
+    def post(self, request: HttpRequest) -> HttpResponse | HttpResponseRedirect:
         if request.user.is_staff:
             raise PermissionDenied
 
@@ -31,7 +33,7 @@ class SupportCasesView(View):
             support_case.save()
             form.create_message(support_case, support_case.from_user)
 
-            return redirect("support_cases_show", id=support_case.id)
+            return redirect("support_cases_show", pk=support_case.id)
 
         context = {
             "message_form": form,

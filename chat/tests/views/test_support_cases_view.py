@@ -1,80 +1,77 @@
+from http import HTTPStatus
+
+from django.forms.models import model_to_dict
 from django.test import TestCase
 from django.urls import reverse
-from django.forms.models import model_to_dict
-from ...models import User, SupportCase, Message
-from http import HTTPStatus
+
+from chat.models import Message, SupportCase, User
 
 
 class SupportCasesViewTestCase(TestCase):
-    def setUp(self):
-        self.user = User.objects.create_user(
-            username="customer123", password="superpass"
-        )
-        self.otherUser = User.objects.create_user(
-            username="otherCustomer", password="superpass"
-        )
-        self.staffUser = User.objects.create_user(
-            username="customerAgent123", password="superpass", is_staff=True
-        )
+    def setUp(self) -> None:
+        self.user = User.objects.create_user(username="customer123", password="superpass")
+        self.otherUser = User.objects.create_user(username="otherCustomer", password="superpass")
+        self.staffUser = User.objects.create_user(username="customerAgent123", password="superpass", is_staff=True)
 
         self.supportCaseUser1 = SupportCase.objects.create(from_user=self.user)
         self.supportCaseUser2 = SupportCase.objects.create(from_user=self.user)
         self.supportCaseOtherUser = SupportCase.objects.create(from_user=self.otherUser)
 
-    def test_get_show_all_support_cases_for_staff(self):
+    def test_get_show_all_support_cases_for_staff(self) -> None:
         self.client.force_login(self.staffUser)
 
         response = self.client.get(reverse("support_cases"))
         html_content = response.content.decode()
 
-        self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertNotIn("Open a support case", html_content)
+        assert response.status_code == HTTPStatus.OK
+        assert "Open a support case" not in html_content
 
-        supportCases = [
+        support_cases = [
             self.supportCaseUser1,
             self.supportCaseUser2,
             self.supportCaseOtherUser,
         ]
-        for supportCase in supportCases:
+        for support_case in support_cases:
+            link_url = reverse("support_cases_show", kwargs={"pk": support_case.id})
             self.assertInHTML(
-                f'<a href="{reverse("support_cases_show", kwargs={"id": supportCase.id})}">Support Case #{supportCase.id}</a>',
+                f'<a href="{link_url}">Support Case #{support_case.id}</a>',
                 html_content,
             )
 
-    def test_get_show_support_cases_only_for_user(self):
+    def test_get_show_support_cases_only_for_user(self) -> None:
         self.client.force_login(self.user)
 
         response = self.client.get(reverse("support_cases"))
         html_content = response.content.decode()
 
-        self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertIn("Open a support case", html_content)
+        assert response.status_code == HTTPStatus.OK
+        assert "Open a support case" in html_content
 
-        supportCases = [self.supportCaseUser1, self.supportCaseUser2]
-        for supportCase in supportCases:
+        support_cases = [self.supportCaseUser1, self.supportCaseUser2]
+        for support_case in support_cases:
+            link_url = reverse("support_cases_show", kwargs={"pk": support_case.id})
             self.assertInHTML(
-                f'<a href="{reverse("support_cases_show", kwargs={"id": supportCase.id})}">Support Case #{supportCase.id}</a>',
+                f'<a href="{link_url}">Support Case #{support_case.id}</a>',
                 html_content,
             )
 
+        link_url = reverse("support_cases_show", kwargs={"pk": self.supportCaseOtherUser.id})
         self.assertNotInHTML(
-            f'<a href="{reverse("support_cases_show", kwargs={"id": self.supportCaseOtherUser.id})}">Support Case #{self.supportCaseOtherUser.id}</a>',
+            f'<a href="{link_url}">Support Case #{self.supportCaseOtherUser.id}</a>',
             html_content,
         )
 
-    def test_post_user_staff_unauthorized_to_open_support_case(self):
+    def test_post_user_staff_unauthorized_to_open_support_case(self) -> None:
         self.client.force_login(self.staffUser)
 
-        response = self.client.post(
-            reverse("support_cases"), data={"content": "Hello!"}
-        )
+        response = self.client.post(reverse("support_cases"), data={"content": "Hello!"})
 
-        self.assertEqual(response.status_code, HTTPStatus.FORBIDDEN)
+        assert response.status_code == HTTPStatus.FORBIDDEN
 
-    def test_post_user_can_open_support_case(self):
+    def test_post_user_can_open_support_case(self) -> None:
         self.client.force_login(self.user)
 
-        initialSupportCasesCount = SupportCase.objects.count()
+        initial_support_cases_count = SupportCase.objects.count()
 
         message = "Hello! I need your help with my bike."
         response = self.client.post(
@@ -82,33 +79,23 @@ class SupportCasesViewTestCase(TestCase):
             data={"content": message},
         )
 
-        supportCase = SupportCase.objects.last()
+        support_case = SupportCase.objects.last()
 
-        self.assertRedirects(
-            response, reverse("support_cases_show", kwargs={"id": supportCase.id})
-        )
-        self.assertEqual(SupportCase.objects.count(), initialSupportCasesCount + 1)
-        self.assertEqual(
-            model_to_dict(supportCase, exclude=["id"]),
-            {
-                "from_user": self.user.id,
-            },
-        )
-        self.assertEqual(
-            model_to_dict(Message.objects.last(), exclude=["id"]),
-            {
-                "content": message,
-                "from_user": self.user.id,
-                "support_case": supportCase.id,
-            },
-        )
+        self.assertRedirects(response, reverse("support_cases_show", kwargs={"pk": support_case.id}))
+        assert SupportCase.objects.count() == initial_support_cases_count + 1
+        assert model_to_dict(support_case, exclude=["id"]) == {"from_user": self.user.id}
+        assert model_to_dict(Message.objects.last(), exclude=["id"]) == {
+            "content": message,
+            "from_user": self.user.id,
+            "support_case": support_case.id,
+        }
 
-    def test_post_user_cannot_open_support_case_when_message_is_empty(self):
+    def test_post_user_cannot_open_support_case_when_message_is_empty(self) -> None:
         self.client.force_login(self.user)
 
         response = self.client.post(reverse("support_cases"), data={"content": ""})
 
         html_content = response.content.decode()
 
-        self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertIn("Your support case could not be opened. Try again.", html_content)
+        assert response.status_code == HTTPStatus.OK
+        assert "Your support case could not be opened. Try again." in html_content
