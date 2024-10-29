@@ -65,6 +65,12 @@ Talking points / topics to be considered:
     - Customer agents have access to all support cases. It would be better to assign one customer agent per support case
       to limit data access. In general, it's a questionable and risky practice to give everyone access
       to everything.
+    - With GitHub, we are notified whenever one of the project's dependency has
+      a security vulnerability. When this happens, we need to update this
+      dependency as soon as possible, but it could be somewhat difficult if the
+      new version brings a lot of changes. The longer we wait before updating our
+      dependencies, the harder it potentially gets. This is why we should use a
+      tool like Dependabot to automate dependency updates.
 - Single point of failure
     - Since the application is hard to scale horizontally, thus most surely running on a single server, it has
       a single point of failure. If the server goes down (hardware failure, power outage, etc...), the application
